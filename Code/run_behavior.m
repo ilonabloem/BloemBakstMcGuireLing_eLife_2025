@@ -7,6 +7,9 @@ close all
 projectDir 	= projectRootPath;
 figureDir   = fullfile(projectDir, 'Figures');
 dataDir     = fullfile(projectDir, 'Data', 'eyeTracking');
+if ~exist(fullfile(dataDir, 'Data'), 'dir') > 0
+    error('Data folder not found within the project directory')
+end
 
 %load in data
 load('eyeData.mat')

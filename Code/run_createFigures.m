@@ -8,7 +8,11 @@ if ~exist('figureDir','var') || isempty(figureDir)
     figureDir       = fullfile(projectRootPath, 'Figures'); % find project root dir based on where this code is located 
 end
 if ~exist('dataDir', 'var') || isempty(dataDir)
+    
     dataDir         = fullfile(projectRootPath);
+    if ~exist(fullfile(dataDir, 'Data'), 'dir') > 0
+        error('Data folder not found within the project directory')
+    end
 end
 if ~exist('saveFig', 'var') || isempty(saveFig)
     saveFig         = true; 
@@ -22,7 +26,6 @@ if ~exist('Violin', 'file') > 0
     error('Toolbox ''Violinplot-Matlab'' is necessary to reproduce the figures')
 end
 
-dataDir       = fullfile('~', 'Documents', 'BloemBakstMcGuireLing_eLife_2025');
 %% Load data and model results
 
 resultsName         = fullfile(dataDir, 'Data', 'modelOutput', sprintf('attWindow_smooth_modelResults_%s.mat', Task));

@@ -32,6 +32,9 @@ maxNumCompThreads(num_cores); %
 %% Setup directories
 p.projectDir    = projectRootPath;
 p.dataDir       = p.projectDir; % Folder 'Data' should reside inside this directory 
+if ~exist(fullfile(p.dataDir, 'Data'), 'dir') > 0
+    error('Data folder not found within the project directory')
+end
 p.codeDir     	= fileparts(which('projectRootPath'));
 p.figureDir   	= fullfile(p.projectDir, 'Figures'); % Figures will be saved inside main project directory
 
