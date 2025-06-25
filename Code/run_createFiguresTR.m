@@ -24,8 +24,6 @@ if ~exist('Violin', 'file') > 0
     error('Toolbox ''Violinplot-Matlab'' is necessary to reproduce the figures')
 end
 
-dataDir       = fullfile('~', 'Documents', 'BloemBakstMcGuireLing_eLife_2025');
-
 %% Load data and model results
 resultsName         = fullfile(dataDir, 'Data', 'modelOutput', sprintf('attWindow_smooth_TRmodelResults_%s.mat', Task));
 
