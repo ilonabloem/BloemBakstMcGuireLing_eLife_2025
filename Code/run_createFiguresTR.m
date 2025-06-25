@@ -9,9 +9,9 @@ if ~exist('figureDir','var') || isempty(figureDir)
 end
 if ~exist('dataDir', 'var') || isempty(dataDir)
     dataDir         = projectRootPath;
-    if ~exist(fullfile(dataDir, 'Data'), 'dir') > 0
-        error('Data folder not found within the project directory')
-    end
+end
+if ~exist(fullfile(dataDir, 'Data'), 'dir') > 0
+    error('Data folder not found within the project directory')
 end
 if ~exist('saveFig', 'var') || isempty(saveFig)
     saveFig         = true; 
