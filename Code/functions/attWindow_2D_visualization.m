@@ -2,7 +2,7 @@
 function attWindow_2D_visualization(p, data, design, showFigures, saveFig)
 
 
-saveName            = sprintf('%s_AttWindow_2Drepresentation_%s.mat', p.Task, p.analysisType);
+saveName            = sprintf('%s_AttWindow_2Drepresentation_%s_visualization.mat', p.Task, p.analysisType);
 saveDir             = fullfile(p.dataDir, 'Data', '2Drepresentations');
 
 if ~exist(saveDir, 'dir'), mkdir(saveDir); end
@@ -25,6 +25,11 @@ if exist(fullfile(saveDir, saveName), 'file') > 0
 else
     
     fprintf('Computing 2D representations ... \n')
+
+    if (~exist('data', 'var') > 0 || isempty(data)) || ...
+        (~exist('design', 'var') > 0 || isempty(design))
+        error('Missing data and design structures')
+    end
 
     output              = struct('all_RecenteredData', cell(p.nSubs, p.numROIs), ...
                                  'all_unRecenteredData', cell(p.nSubs, p.numROIs), ...

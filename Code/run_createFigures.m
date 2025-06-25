@@ -22,6 +22,7 @@ if ~exist('Violin', 'file') > 0
     error('Toolbox ''Violinplot-Matlab'' is necessary to reproduce the figures')
 end
 
+dataDir       = fullfile('~', 'Documents', 'BloemBakstMcGuireLing_eLife_2025');
 %% Load data and model results
 
 resultsName         = fullfile(dataDir, 'Data', 'modelOutput', sprintf('attWindow_smooth_modelResults_%s.mat', Task));
@@ -36,6 +37,8 @@ end
 
 %% setup how to bin parameter estimates
 p               = data.params;
+p.dataDir       = dataDir;
+p.figureDir     = figureDir;
 p               = setupFigureInfo(p);
 
 %% Preallocate variable for results:
@@ -119,7 +122,8 @@ if ~exist(fullfile(figureDir, Task, sprintf('%s_SEMR2.csv', p.savestr)), 'file')
     writetable(T, fullfile(figureDir, Task, sprintf('%s_SEMR2.csv', p.savestr)))
 end
 
-%% Activity profiles
+%% Activity profiles 2D and 1D
+attWindow_2D_visualization(p, [], [], true, saveFig)
 figureActivityProfilesFWHM(p, data.avgSummary, results, 'avg', fullfile(figureDir, Task), saveFig);
 
 %% Angular error ---

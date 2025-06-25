@@ -53,7 +53,7 @@ Data            = preprocessData(p, showFigures, saveFig);
 Design          = attWindow_taskData(p);
 
 %% Create 2D representations
-showFigures     = true;
+showFigures     = false;
 saveFig         = false;
 
 p.analysisType  = 'blockAvg';
