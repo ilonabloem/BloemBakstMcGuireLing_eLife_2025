@@ -105,7 +105,7 @@ for roi = 1:p.numROIs
     T.Properties.RowNames = p.SubjNames;
     T.Properties.Description = 'Model results: Gain of spatial profile fits';
     T.Properties.VariableUnits = repmat({'%SC'}, [1, p.numAttWindows]); 
-    writetable(T, fullfile(figureDir, sprintf('%s_Gain_%s.csv', p.savestr, p.ROInames{roi})))
+    writetable(T, fullfile(p.csvDir, sprintf('%s_Gain_%s.csv', p.savestr, p.ROInames{roi})))
     
 end
 

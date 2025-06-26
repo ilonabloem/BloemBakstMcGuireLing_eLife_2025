@@ -97,10 +97,11 @@ for sub = 1:p.nSubs
     results(sub).medR2         = medR2;
 end
 
-%% Compute avg R2 across ROI and width condition
-if ~exist(fullfile(figureDir, Task),'dir'), mkdir(fullfile(figureDir, Task)); end
+%% Create CSV files with parameter estimates for stats
+p.csvDir      = fullfile(p.dataDir, 'Data', 'csvs', Task);
+if ~exist(p.csvDir,'dir'), mkdir(p.csvDir); end
 
-if ~exist(fullfile(figureDir, Task, sprintf('%s_SEMR2.csv', p.savestr)), 'file') > 0
+if ~exist(fullfile(p.csvDir, sprintf('%s_SEMR2.csv', p.savestr)), 'file') > 0
     tmp         = [results(:).medR2];
     tmp         = reshape(tmp, [p.numAttWindows, p.numROIs, p.nSubs]);
 
@@ -112,7 +113,7 @@ if ~exist(fullfile(figureDir, Task, sprintf('%s_SEMR2.csv', p.savestr)), 'file')
     avgR2_V2    = avgR2(:,2);
     avgR2_V3    = avgR2(:,3);
     T           = table(attWidths, avgR2_V1, avgR2_V2, avgR2_V3);
-    writetable(T, fullfile(figureDir, Task, sprintf('%s_avgR2.csv', p.savestr)))
+    writetable(T, fullfile(p.csvDir, sprintf('%s_avgR2.csv', p.savestr)))
 
     %-- SEM
     SEMR2       = std(tmp, [], 3) / sqrt(p.nSubs);
@@ -121,7 +122,7 @@ if ~exist(fullfile(figureDir, Task, sprintf('%s_SEMR2.csv', p.savestr)), 'file')
     SEMR2_V2    = SEMR2(:,2);
     SEMR2_V3    = SEMR2(:,3);
     T           = table(attWidths, SEMR2_V1, SEMR2_V2, SEMR2_V3);
-    writetable(T, fullfile(figureDir, Task, sprintf('%s_SEMR2.csv', p.savestr)))
+    writetable(T, fullfile(p.csvDir, sprintf('%s_SEMR2.csv', p.savestr)))
 end
 
 %% Activity profiles 2D and 1D
@@ -143,6 +144,8 @@ figureAmplitudeEstimate(p, data.avgResults, results, 'avg', fullfile(figureDir, 
 %% Baseline ---
 figureBaselineEstimate(p, data.avgResults, results, 'avg', fullfile(figureDir, Task, 'paramEst'), saveFig);
 
+%% comparison attention and perceptio
+figureFWHMcomparison(fullfile(p.dataDir, 'Data', 'csvs'), fullfile(figureDir), saveFig);
 
 %% Miscellaneous figures
 % Model schematic

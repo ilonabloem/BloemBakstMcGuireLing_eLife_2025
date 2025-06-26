@@ -146,33 +146,37 @@ for roi=1:p.numROIs
     end
     
     %-- Save CSV files 
+    csvDir      = fullfile(p.dataDir, 'Data', 'csvs');
+
+    if ~exist(csvDir, 'dir') > 0, mkdir(csvDir); end
+
     for ii = 1:p.numAttWindows
         ang_TR      = AngMedians(: ,:, ii)';
-        saveName    = fullfile(figureDir, sprintf('ang_variableTR_Width%i_%s.csv', ii, p.ROInames{roi}));
+        saveName    = fullfile(csvDir, sprintf('ang_variableTR_Width%i_%s.csv', ii, p.ROInames{roi}));
         T           = table(ang_TR(:,1), ang_TR(:,2), ang_TR(:,3), ang_TR(:,4), ang_TR(:,5));
         T.subjID    = p.SubjNames(:);
         writetable(T, saveName)
         
         width_TR     = WidthMedians(: ,:, ii)';
-        saveName    = fullfile(figureDir, sprintf('width_variableTR_Width%i_%s.csv', ii, p.ROInames{roi}));
+        saveName    = fullfile(csvDir, sprintf('width_variableTR_Width%i_%s.csv', ii, p.ROInames{roi}));
         T           = table(width_TR(:,1), width_TR(:,2), width_TR(:,3), width_TR(:,4), width_TR(:,5));
         T.subjID    = p.SubjNames(:);
         writetable(T, saveName)
         
         ampl_TR     = AmplMedians(: ,:, ii)';
-        saveName    = fullfile(figureDir, sprintf('gain_variableTR_Width%i_%s.csv', ii, p.ROInames{roi}));
+        saveName    = fullfile(csvDir, sprintf('gain_variableTR_Width%i_%s.csv', ii, p.ROInames{roi}));
         T           = table(ampl_TR(:,1), ampl_TR(:,2), ampl_TR(:,3), ampl_TR(:,4), ampl_TR(:,5));
         T.subjID    = p.SubjNames(:);
         writetable(T, saveName)
         
         base_TR     = BaseMedians(: ,:, ii)';
-        saveName    = fullfile(figureDir, sprintf('base_variableTR_Width%i_%s.csv', ii, p.ROInames{roi}));
+        saveName    = fullfile(csvDir, sprintf('base_variableTR_Width%i_%s.csv', ii, p.ROInames{roi}));
         T           = table(base_TR(:,1), base_TR(:,2), base_TR(:,3), base_TR(:,4), base_TR(:,5));
         T.subjID    = p.SubjNames(:);
         writetable(T, saveName)
         
         r2_TR       = R2Medians(: ,:, ii)';
-        saveName    = fullfile(figureDir, sprintf('R2_variableTR_Width%i_%s.csv', ii, p.ROInames{roi}));
+        saveName    = fullfile(csvDir, sprintf('R2_variableTR_Width%i_%s.csv', ii, p.ROInames{roi}));
         T           = table(r2_TR(:,1), r2_TR(:,2), r2_TR(:,3), r2_TR(:,4), r2_TR(:,5));
         T.subjID    = p.SubjNames(:);
         writetable(T, saveName)
@@ -185,7 +189,7 @@ sgtitle(sprintf('Variable TR analysis'))
    
 if saveFig
     if ~exist(figureDir, 'dir'), mkdir(figureDir); end
-    print(fullfile(figureDir, sprintf('%s_%s', mfilename, p.savestr)), '-dpdf', '-painters', '-bestfit')
+    print(fullfile(figureDir, sprintf('%s_%s', mfilename, p.savestr)), '-dpdf', '-vector', '-bestfit')
 
 end
 

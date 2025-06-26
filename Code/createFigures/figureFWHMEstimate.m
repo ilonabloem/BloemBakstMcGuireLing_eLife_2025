@@ -103,7 +103,7 @@ for roi = 1:p.numROIs
     T.Properties.RowNames = p.SubjNames;
     T.Properties.Description = 'Model results: FWHM of spatial profile fits';
     T.Properties.VariableUnits = repmat({'deg'}, [1, p.numAttWindows]);
-    writetable(T, fullfile(figureDir, sprintf('%s_FWHM_%s.csv', p.savestr, p.ROInames{roi})))
+    writetable(T, fullfile(p.csvDir, sprintf('%s_FWHM_%s.csv', p.savestr, p.ROInames{roi})))
     
 end
 
