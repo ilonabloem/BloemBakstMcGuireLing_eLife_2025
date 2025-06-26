@@ -4,8 +4,7 @@
 
 %% Setup paths
 prm.projectDir  = projectRootPath;
-% prm.dataDir         = projectRootPath;
-prm.dataDir         = '~/Documents/BloemBakstMcGuireLing_eLife_2025';
+prm.dataDir     = projectRootPath;
 if ~exist(fullfile(prm.dataDir, 'Data'), 'dir') > 0
     error('Data folder not found within the project directory')
 end
