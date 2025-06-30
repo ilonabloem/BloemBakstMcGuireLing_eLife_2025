@@ -1,10 +1,17 @@
-% stats for Bloem, Bakst, McGuire & Ling (2025) eLife
+
+function run_stats(dataDir)
+% Replicate stats for Bloem, Bakst, McGuire & Ling (2025) eLife
+% Scripts reads CSV files that are created in the scripts run_createFigures and run_createFiguresTR
+% The location of the CSV files is fullfile(dataDir, 'Data', 'csvs').
 %
 % LRB May 2024
 
+
 %% Setup paths
 prm.projectDir  = projectRootPath;
-prm.dataDir     = projectRootPath;
+if ~exist('dataDir', 'var') || isempty(dataDir)
+    prm.dataDir     = fullfile(projectRootPath);
+end
 if ~exist(fullfile(prm.dataDir, 'Data'), 'dir') > 0
     error('Data folder not found within the project directory')
 end
@@ -278,3 +285,6 @@ pcptData    = readtable(fullfile(csvDir, '..', 'PCM', 'perception_avgFWHM.csv'))
 pcptData    = pcptData{[1:3 5],2:4};
 disp(['Pearson correlation = ' num2str(corr(pcptData(:),attData(:)))])
 
+[~, p, ~, stats]       = ttest2(pcptData(:),attData(:));
+disp(['t(' num2str(stats.df) ') = ' num2str(round(stats.tstat,2)) ', p = ' num2str(round(p,3))]) 
+    
